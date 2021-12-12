@@ -1,0 +1,100 @@
+.home{
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  transition: box-shadow .3s ease-in-out;
+  margin-top: 30px;
+}
+
+
+.link-cont{
+  
+}
+
+.details-container{
+  display: flex;
+  margin-left: 10%;
+}
+
+.desc-container{
+  margin-top: 10%;
+}
+
+footer {
+  margin-top: 300px;
+}
+
+.home-cont{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+
+.home-cont image{
+    display: flex;
+    align-items: center;
+    height: 150px;
+    margin-left: 50px;
+}
+
+.headHome{
+  text-align: center;
+}
+
+.mainForm{
+  margin: 0px 50px;
+}
+
+.card-img{
+  display: flex;
+  align-items: center;
+  height: 150px;
+  margin-left: 50px;
+}
+
+:root{
+  --mainBlue: #2a2a72;
+  --lightBlue: #009ffd;
+  --mainWhite: #f3f3f3;
+  --mainDark: #232528;
+  --mainBlue: #2a2a72;
+ 
+}
+
+.body{
+  font-family: "Oswald", sans-serif !important;
+  background: var(--mainWhite) !important ;
+  color: var(--mainDark) !important;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
