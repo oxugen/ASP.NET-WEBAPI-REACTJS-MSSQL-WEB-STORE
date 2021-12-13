@@ -42,8 +42,9 @@ const Home = () => {
       <div className="headHome"><h1>Добро пожаловать!</h1>
       <Heading></Heading>
       <h1>Список наших товаров</h1><div class="home">
-      <label class="form-check-label" for="flexCheckDefault">Наличие на складе</label>
-      <input className="form-check-input" type="checkbox" checked={x} onChange={soldCheckbox} />   
+      
+      <input className="form-check-input" type="checkbox" checked={x} onChange={soldCheckbox} /> 
+      <label class="form-check-label" for="flexCheckDefault">Наличие на складе</label>  
       </div>
       {!loading && <div className="loading">Loading...</div>}
       {loading && (
