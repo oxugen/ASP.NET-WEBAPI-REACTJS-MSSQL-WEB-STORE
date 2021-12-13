@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Cart = ({ url, src, id, nameOfProduct, numberOfProducts ,description,price}) => {
     return(
-      <Link className="link-cont" to={url}>
+      <Link className="btn btn-outline-warning" to={url}>
         <div class="card" key={id} >
           <div class="card-img">
             <img width="100px" height="100px" src={src} alt="product" className="" />
