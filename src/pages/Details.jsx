@@ -7,12 +7,10 @@ import {
 } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-//тк когда мы создали роутер и указали шаблон строки /details/:productId
-//то теперь можем достучаться до productId через хук useParams
 const Cart = () => {
   const { productId } = useParams();
   const apiURL = "http://localhost:53803/api/product/productById?id=" + productId;
-  const [paints , setPaint] =  useState();
+  const [paints,setPaint] =  useState();
   const [loading, setLoading] = useState(false);
   const [redirect,setRedirect] = useState(false);
 
@@ -49,7 +47,9 @@ const Cart = () => {
           </div>
           <div className="desc-container">
           <h3>Описание:</h3>  
-          <p>{paints.description}</p>
+          <h5>{paints.description}</h5>
+          <h3>Цена:</h3>
+          <h2>{paints.price} руб.</h2>
           <p>Выберите количество товаров: </p>
           <input type={'number'} max={paints.numberOfProducts}></input>
           <br></br>

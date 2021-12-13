@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Details from './pages/Details';
 import Cart from './components/Cart';
+import Add from './pages/Add';
 
 function App() {
   const [firstName,setName] = useState('');
@@ -40,6 +41,7 @@ function App() {
             <Route path="/login"  element={<Login setName={setName}/>} />
             <Route path="/register" element={<Register/>} />
             <Route path="/details/:productId" element={<Details/>}/>
+            <Route path="/Add" element={<Add/>}/>
           </Routes>
         </main>
       </BrowserRouter>

@@ -6,6 +6,9 @@ import axios from 'axios';
 const Nav = (props: {firstName:string, setName: (firstName:string) => void}) => {
   const [nameOfProduct,setName] = useState('');
   const [redirect,setRedirect] = useState(false);
+  const [role,setRole] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const submit = async (e:SyntheticEvent) => {
     e.preventDefault();
     if(nameOfProduct != null){
@@ -13,7 +16,24 @@ const Nav = (props: {firstName:string, setName: (firstName:string) => void}) => 
     setRedirect(true)
   }
 }
-  
+    useEffect( () => {
+      (
+      async() => {
+        const response = await fetch('http://localhost:53803/api/auth/user',{
+          headers:{'Content-type': 'application/json'},
+          credentials:'include'
+        });
+        const content = await response.json();
+
+        setRole(content.roleOfUser);
+        console.log(role);
+        if(role === 'Manager'){
+          setLoading(true);
+        }
+        
+      }
+      )();
+    })
 
     const logout = async () => {
       await fetch('http://localhost:53803/api/auth/logout',{
@@ -25,11 +45,11 @@ const Nav = (props: {firstName:string, setName: (firstName:string) => void}) => 
 
     }
     let menu;
-    if(redirect == true){
+    // if(redirect == true){
     
-        <Link to={'details/1'}></Link>
+    //     <Link to={'details/1'}></Link>
       
-    }
+    // }
     if(props.firstName === ''){
       menu = (
         <>
@@ -52,6 +72,9 @@ const Nav = (props: {firstName:string, setName: (firstName:string) => void}) => 
         <ul className="navbar-nav align-items-center">
           <li className="nav-item">
             <Link to="/Login" className="nav-link" aria-disabled="true" onClick={logout}>Выйти</Link>
+          </li>
+          <li className="nav-item">
+            {loading && <Link to="/Add" className="nav-link" aria-disabled="true" >Добавить товар</Link> }
           </li>
         </ul>
         <form className="form-inline mt-2 mt-md-0">
