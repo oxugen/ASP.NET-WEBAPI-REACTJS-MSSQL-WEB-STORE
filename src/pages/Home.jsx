@@ -12,6 +12,8 @@ const Home = () => {
   const [redirect,setRedirect] = useState(false);
   const apiURL = "http://localhost:53803/api/product";
 
+  const [x, setX] = useState(false);
+
   const loadPaints = async () => {
    
     const response = await axios.get(apiURL)
@@ -25,6 +27,14 @@ const Home = () => {
     
   })
 
+  const soldCheckbox = ({ target: { checked } }) => {
+    console.log(x, checked);
+    setX(checked);
+  };
+
+  if(x){
+
+  }
 
   return (
       
@@ -32,18 +42,33 @@ const Home = () => {
       <div className="headHome"><h1>Добро пожаловать!</h1>
       <Heading></Heading>
       <h1>Список наших товаров</h1><div class="home">
+      <label class="form-check-label" for="flexCheckDefault">Наличие на складе</label>
+      <input className="form-check-input" type="checkbox" checked={x} onChange={soldCheckbox} />   
       </div>
       {!loading && <div className="loading">Loading...</div>}
       {loading && (
         <div className="home-cont">
-          {paints?.map((paint) => (
+          {x && 
+          paints?.filter( paint => paint.numberOfProducts > 0).map((paint) => (
             <Details
               id={paint.productId}
               src={`http://localhost:53803/api/product/image?id=${paint.productId}`}
               nameOfProduct={paint.nameOfProduct}
               url={`/details/${paint.productId}`}
               numberOfProducts={paint.numberOfProducts}
-              description={paint.description} />
+              description={paint.description} 
+              price={paint.price}/>
+          ))}
+          {!x && 
+           paints?.map((paint) => (
+            <Details
+              id={paint.productId}
+              src={`http://localhost:53803/api/product/image?id=${paint.productId}`}
+              nameOfProduct={paint.nameOfProduct}
+              url={`/details/${paint.productId}`}
+              numberOfProducts={paint.numberOfProducts}
+              description={paint.description} 
+              price={paint.price}/>
           ))}
         </div>
       )}
