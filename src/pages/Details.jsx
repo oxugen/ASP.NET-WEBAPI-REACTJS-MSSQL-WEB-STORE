@@ -51,7 +51,7 @@ const Cart = () => {
           <h3>Цена:</h3>
           <h2>{paints.price} руб.</h2>
           <p>Выберите количество товаров: </p>
-          <input type={'number'} max={paints.numberOfProducts}></input>
+          <input type={'number'} min={0} max={paints.numberOfProducts}></input>
           <br></br>
           <button className="btn btn-warning" onClick={order}>Заказать товар</button>
           </div>

@@ -1,5 +1,5 @@
 import React, { PureComponent, SyntheticEvent, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight } from 'react-bootstrap-icons';
 import axios from 'axios';
 
@@ -8,14 +8,18 @@ const Nav = (props: {firstName:string, setName: (firstName:string) => void}) => 
   const [redirect,setRedirect] = useState(false);
   const [role,setRole] = useState('');
   const [loading, setLoading] = useState(false);
+  let [searchParams, setSearchParams] = useSearchParams();
 
-  const submit = async (e:SyntheticEvent) => {
-    e.preventDefault();
-    if(nameOfProduct != null){
-      
-    setRedirect(true)
+   
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    let formData = new FormData(event.currentTarget);
+    let newProduct = formData.get("nameOfProduct") as string;
+    if (!newProduct) return;
+    setSearchParams({ nameOfProduct: newProduct });
   }
-}
+
     useEffect( () => {
       (
       async() => {
@@ -26,7 +30,6 @@ const Nav = (props: {firstName:string, setName: (firstName:string) => void}) => 
         const content = await response.json();
 
         setRole(content.roleOfUser);
-        console.log(role);
         if(role === 'Manager'){
           setLoading(true);
         }
@@ -78,10 +81,10 @@ const Nav = (props: {firstName:string, setName: (firstName:string) => void}) => 
           </li>
         </ul>
         <form className="form-inline mt-2 mt-md-0">
-        <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" 
-           onChange={e => setName(e.target.value)}
-        />
-        <button className="btn btn-warning" type="submit" onClick={submit}>Search</button>
+        <form onSubmit={handleSubmit}>
+        <input className="form-control mr-sm-2" name="nameOfProduct" type="text" placeholder="Search" aria-label="Search"/>
+        <button className="btn btn-warning" type="submit">Search</button>
+        </form>
       </form>
         </div>
         <Link to="/Cart" className="ml-auto mt-2 mt-md-0" >

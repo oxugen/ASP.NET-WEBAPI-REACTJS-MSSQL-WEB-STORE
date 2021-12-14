@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link , useSearchParams} from "react-router-dom";
 import styled from 'styled-components';
 import { Navigate } from "react-router-dom";
 import Details from '../components/Details';
@@ -10,14 +10,26 @@ const Home = () => {
   const [paints, setPaints] =  useState();
   const [loading, setLoading] = useState(false);
   const [redirect,setRedirect] = useState(false);
-  const apiURL = "http://localhost:53803/api/product";
-
+  let [searchParams, setSearchParams] = useSearchParams();
+  const productListURL = "http://localhost:53803/api/product/";
+  const productFilterURL = "http://localhost:53803/api/product/getbyname/"
+  let [productData, setProductData] = useState();
   const [x, setX] = useState(false);
 
+  let productNameFilter = searchParams.get("nameOfProduct");  
   const loadPaints = async () => {
-   
-    const response = await axios.get(apiURL)
-    setPaints(response.data);
+    let resp;
+    if (productNameFilter) {
+      resp = await axios.get(productFilterURL, {
+        params: {
+          nameOfProduct: productNameFilter,
+        },
+      });
+    } else {
+      resp = await axios.get(productListURL);
+    }
+    console.log(resp.data);
+    setPaints(resp.data);
     setLoading(false);
   }
 
@@ -28,13 +40,9 @@ const Home = () => {
   })
 
   const soldCheckbox = ({ target: { checked } }) => {
-    console.log(x, checked);
     setX(checked);
   };
 
-  if(x){
-
-  }
 
   return (
       
