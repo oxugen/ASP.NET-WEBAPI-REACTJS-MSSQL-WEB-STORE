@@ -10,17 +10,44 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const { productId } = useParams();
   const apiURL = "http://localhost:53803/api/product/productById?id=" + productId;
+  //const addCardURL  = "http://localhost:53803/api/product/addCart";
   const [paints,setPaint] =  useState();
   const [loading, setLoading] = useState(false);
   const [redirect,setRedirect] = useState(false);
 
+  var oldProductsId = [localStorage.getItem('ProductId')];
+ 
+  
   const loadPaints = async () => {
     const response = await axios.get(apiURL);
     setPaint(response.data);
     setLoading(true);
   }
   
+  async function handleSubmit(event)  {
+    event.preventDefault();
+    let formData = new FormData(event.currentTarget);
+    let CountOfProducts = formData.get("CountOfProducts");
+    if (!CountOfProducts) return;
+    localStorage.setItem('ProductId',productId);
+    localStorage.setItem('CountOfProducts',CountOfProducts);
+    // const response = await fetch(addCardURL,{
+    //       method: 'POST',
+    //       headers:{'Content-type': 'application/json'},
+    //       credentials: 'include',
+    //       body: JSON.stringify({
+    //           productId,
+    //           CountOfProducts
+    //       })
+    //   });
+    // console.log(response.data);
+    setRedirect(true);
+  }
+
   const order = async() => {
+    //this.setState({ arr: [oldProductsId, productId] });
+    localStorage.setItem('ProductId', productId );
+
     setRedirect(true);
   }
   
@@ -30,9 +57,9 @@ const Cart = () => {
   })
 
   if(redirect){
-   return <Link to={'/Cart'} >
+   return <Navigate to={'/Cart'} >
      
-   </Link>
+   </Navigate>
   }
   return (
     <>
@@ -51,9 +78,11 @@ const Cart = () => {
           <h3>Цена:</h3>
           <h2>{paints.price} руб.</h2>
           <p>Выберите количество товаров: </p>
-          <input type={'number'} min={0} max={paints.numberOfProducts}></input>
+          <form onSubmit={handleSubmit}>
+          <input type={'number'} required name="CountOfProducts" min={0} max={paints.numberOfProducts}></input>
           <br></br>
-          <button className="btn btn-warning" onClick={order}>Заказать товар</button>
+          <button type="submit" className="btn btn-warning" >Добавить в корзину</button>
+          </form>
           </div>
           </div>
 

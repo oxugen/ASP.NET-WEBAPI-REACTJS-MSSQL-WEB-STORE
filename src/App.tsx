@@ -37,7 +37,7 @@ function App() {
         <main className="mainForm">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Cart" element={<Cart id={undefined} />} />
+            <Route path="/Cart" element={<Cart />} />
             <Route path="/login"  element={<Login setName={setName}/>} />
             <Route path="/register" element={<Register/>} />
             <Route path="/details/:productId" element={<Details/>}/>

@@ -4,8 +4,8 @@ import { Navigate } from "react-router-dom";
 const Register = () => {
     const [FirstName,setName] = useState('');
     const [SecondName,setSecondName] = useState('');
-    const [Mail,setEmail] = useState('');
-    const [Pass,setPassword] = useState('');
+    const [Email,setEmail] = useState('');
+    const [Password,setPassword] = useState('');
     const [redirect,setRedirect] = useState(false);
 
 
@@ -18,8 +18,8 @@ const Register = () => {
             body: JSON.stringify({
                 FirstName,
                 SecondName,
-                Mail,
-                Pass
+                Email,
+                Password
             })
         });
         setRedirect(true);
@@ -28,9 +28,9 @@ const Register = () => {
     return <Navigate to="/Login" />
     }
     return (
-
+        <div className="login-div">
         <form onSubmit={submit}>
-        <h1 className="h3 mb-3 fw-normal">Please Register</h1>
+        <h1 className="h3 mb-3 fw-normal">Пожалуйста, зарегестрируйтесь</h1>
         <input className="form-control" placeholder="First Name" required
             onChange={e => setName(e.target.value)}
         />
@@ -40,11 +40,12 @@ const Register = () => {
         <input type="email" className="form-control" placeholder="Email address" required
             onChange={e => setEmail(e.target.value)}
         />
-        <input type="password" className="form-control" placeholder="Password" required
+        <input type="password" className="form-control" minLength={8} placeholder="Password" required
             onChange={e => setPassword(e.target.value)}
         />
-        <button className="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+        <button className="w-100 btn btn-lg btn-warning" type="submit">Зарегестрироваться</button>
         </form>
+        </div>
     );
 };
 

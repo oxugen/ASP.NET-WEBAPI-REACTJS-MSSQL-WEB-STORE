@@ -23,6 +23,7 @@ namespace PShop.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductsOrder> ProductsOrders { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Card> Card { get; set; }
 
 
 

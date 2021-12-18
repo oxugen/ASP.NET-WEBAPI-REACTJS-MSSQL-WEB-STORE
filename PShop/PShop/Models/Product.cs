@@ -24,5 +24,6 @@ namespace PShop.Models
 
         public virtual Category Category { get; set; }
         public virtual ICollection<ProductsOrder> ProductsOrders { get; set; }
+        public virtual ICollection<Card> Card { get; set; }
     }
 }

@@ -11,6 +11,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [redirect,setRedirect] = useState(false);
   let [searchParams, setSearchParams] = useSearchParams();
+  const [name,setName] = useState();
   const productListURL = "http://localhost:53803/api/product/";
   const productFilterURL = "http://localhost:53803/api/product/getbyname/"
   let [productData, setProductData] = useState();
@@ -28,12 +29,24 @@ const Home = () => {
     } else {
       resp = await axios.get(productListURL);
     }
-    console.log(resp.data);
+    //console.log(resp.data);
     setPaints(resp.data);
     setLoading(false);
   }
 
   useEffect(() => {
+    (
+      async() => {
+        const response = await fetch('http://localhost:53803/api/auth/user',{
+          headers:{'Content-type': 'application/json'},
+          credentials:'include'
+        });
+        const content = await response.json();
+
+        setName(content.firstName);
+        
+      }
+      )();
     setLoading(true);
     loadPaints();
     
@@ -45,9 +58,8 @@ const Home = () => {
 
 
   return (
-      
       <>
-      <div className="headHome"><h1>Добро пожаловать!</h1>
+      <div className="headHome"><h1>Добро пожаловать,{name}!</h1>
       <Heading></Heading>
       <h1>Список наших товаров</h1><div class="home">
       

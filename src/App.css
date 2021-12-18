@@ -7,6 +7,25 @@
   margin-top: 30px;
 }
 
+.addForm{
+  margin-right: 600px;
+  margin-left: 450px;
+}
+
+.login-div{
+  margin: 100px 550px;
+}
+
+.btn-div button{
+ 
+  margin: 5px;
+  
+}
+
+.order-div{
+  display: inline-block;
+}
+
 .home{
   padding: 10px;
 }

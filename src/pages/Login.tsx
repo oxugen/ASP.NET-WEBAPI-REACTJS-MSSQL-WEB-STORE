@@ -30,18 +30,17 @@ const Login = (props: {setName: (firstName:string) => void}) => {
     }
 
     return (
-        <div>
+        <div className="login-div">
         <form action="" onSubmit={submit}>
-          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+          <h1 className="h3 mb-3 font-weight-normal">Логин</h1>
           <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required autoFocus
             onChange= {e => setEmail(e.target.value)}
           />
           <input type="password" id="inputPassword" className="form-control" placeholder="Password" required
             onChange= {e => setPassword(e.target.value)}
           />
-          <input type="checkbox" value="remember-me"/> Remember me
-
-          <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          <input type="checkbox" value="remember-me"/> Запомнить меня
+          <button className="btn btn-lg btn-primary btn-block btn-warning" type="submit">Войти</button>
           </form>
         </div>
     );

@@ -45,7 +45,7 @@ const Nav = (props: {firstName:string, setName: (firstName:string) => void}) => 
         credentials: 'include',
     });
     props.setName('');
-
+    localStorage.clear()
     }
     let menu;
     // if(redirect == true){

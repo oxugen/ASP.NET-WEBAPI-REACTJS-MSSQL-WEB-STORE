@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Asus\\source\\repos\\PShop\\PShop\\PShop.csproj": {}
+    "C:\\Users\\Asus\\PShop\\PShop\\PShop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Asus\\source\\repos\\PShop\\PShop\\PShop.csproj": {
+    "C:\\Users\\Asus\\PShop\\PShop\\PShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\PShop\\PShop\\PShop.csproj",
+        "projectUniqueName": "C:\\Users\\Asus\\PShop\\PShop\\PShop.csproj",
         "projectName": "PShop",
-        "projectPath": "C:\\Users\\Asus\\source\\repos\\PShop\\PShop\\PShop.csproj",
+        "projectPath": "C:\\Users\\Asus\\PShop\\PShop\\PShop.csproj",
         "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\source\\repos\\PShop\\PShop\\obj\\",
+        "outputPath": "C:\\Users\\Asus\\PShop\\PShop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -44,6 +44,10 @@
             "BCrypt.Net-Next": {
               "target": "Package",
               "version": "[4.0.2, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "Microsoft.AspNetCore.Cors": {
               "target": "Package",
