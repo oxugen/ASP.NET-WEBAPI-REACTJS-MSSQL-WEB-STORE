@@ -77,7 +77,11 @@ const Nav = (props: {firstName:string, setName: (firstName:string) => void}) => 
             <Link to="/Login" className="nav-link" aria-disabled="true" onClick={logout}>Выйти</Link>
           </li>
           <li className="nav-item">
-            {loading && <Link to="/Add" className="nav-link" aria-disabled="true" >Добавить товар</Link> }
+            {loading && <Link to="/Add" className="nav-link" aria-disabled="true" >Добавить товар</Link>
+                         }
+          </li>
+          <li>
+          {loading && <Link to="/Orders" className="nav-link" aria-disabled="true" >Список заказов</Link>}
           </li>
         </ul>
         <form className="form-inline mt-2 mt-md-0">

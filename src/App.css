@@ -7,6 +7,21 @@
   margin-top: 30px;
 }
 
+.input-div{
+  padding: 20px;
+  margin-right: 1200px;
+  border: 4px double #fc3;
+ display: inline-block;
+}
+
+.order-container{
+  display: inline-block;
+  border: 4px double black;
+  padding: 10px;
+  background-color:  #fc3;
+  margin: 10px;
+}
+
 .addForm{
   margin-right: 600px;
   margin-left: 450px;
@@ -23,7 +38,8 @@
 }
 
 .order-div{
-  display: inline-block;
+  margin-right: 500px;
+  border: 2px double #fc3;
 }
 
 .home{

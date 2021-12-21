@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Details from './pages/Details';
 import Cart from './components/Cart';
 import Add from './pages/Add';
+import Orders from './pages/Orders';
 
 function App() {
   const [firstName,setName] = useState('');
@@ -38,6 +39,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/Cart" element={<Cart />} />
+            <Route path="/Orders" element={<Orders />} />
             <Route path="/login"  element={<Login setName={setName}/>} />
             <Route path="/register" element={<Register/>} />
             <Route path="/details/:productId" element={<Details/>}/>

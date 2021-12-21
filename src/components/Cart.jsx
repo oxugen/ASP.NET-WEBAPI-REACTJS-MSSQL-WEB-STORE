@@ -8,52 +8,49 @@ const Cart = () => {
     const CountOfProducts = localStorage.getItem('CountOfProducts');
     const [paints,setPaint] =  useState();
     const [UserId,setUserId] =  useState();
-    const apiURL = "http://localhost:53803/api/product/productById?id=" + productId;
-    const makeOrderURL = "http://localhost:53803/api/product/makeOrder"
+    const apiURL = "http://localhost:53803/api/product/cart";
+    const clearCartURL = "http://localhost:53803/api/product/removeCart";
+    const makeOrderURL = "http://localhost:53803/api/product/makeOrder";
     const [loading, setLoading] = useState(false);
     let PaymentId = 1;
     const [Price,setPrice] = useState();
     const loadPaints = async () => {
-        if(localStorage.length != 0){
+       
         const response = await axios.get(apiURL);
         setPaint(response.data);
+        //console.log(paints);
         setLoading(true);
-        setPrice(response.data.price * CountOfProducts);
-        }
+        //setPrice(response.data.price * CountOfProducts);
+        
       }
-
+     
       const  makeOrder = async (e) => {
         e.preventDefault();
-        if(UserId == null){
-         console.log("дадада");  
-        }
-        else{
-        const response = await fetch(makeOrderURL,{
+        
+        const response = await fetch(makeOrderURL + "?UserId=" + UserId,{
+            method: 'POST',
+            headers:{'Content-type': 'application/json'},
+        });
+        
+        //console.log(response);
+        window.location.reload();
+      }
+      async function removeCard(){
+        const response = await fetch(clearCartURL + "?UserId=" + UserId,{
             method: 'POST',
             headers:{'Content-type': 'application/json'},
             body: JSON.stringify({
-                UserId,
-                PaymentId,
-                Price,
-                CountOfProducts,
-                productId
+                UserId
             })
         });
-        }
-        //console.log(response);
-        localStorage.clear()
-        window.location.reload();
-      }
-      function removeCard(){
-        localStorage.clear()
+       
         window.location.reload();
 
       }
       
     useEffect(() => {
-        if(localStorage.length != 0)
         loadPaints();
-
+        
         (
         async() => {
             const response = await fetch('http://localhost:53803/api/auth/user',{
@@ -62,7 +59,7 @@ const Cart = () => {
             });
             const content = await response.json();
             setUserId(content.userId);
-            
+            //console.log(UserId);
         }
         )();
       })
@@ -72,25 +69,28 @@ const Cart = () => {
             Ваш заказ:
         </h1><div>
                 {!loading && <div className="loading">Ваша корзина пуста</div>}
-                {loading && (
-                    <div className="order-div">
+                {loading && paints?.filter(paint => paint.userId == UserId).map((paint) => (
+                   <><div className="order-div">
                         <div>
-                            <h1>{paints.nameOfProduct}</h1>
+                            <h1>{paint.nameOfProduct}</h1>
                         </div>
                         <div>
-                            <img width={100} height={100} src={`http://localhost:53803/api/product/image?id=${paints.productId}`}></img>
+                            <img width={100} height={100} src={`http://localhost:53803/api/product/image?id=${paint.productId}`}></img>
                         </div>
                         <div className='desc-div'>
                             <h3>Цена:</h3>
-                            <h2>{paints.price * CountOfProducts} руб.</h2>
-                            <h2>Количество товара: {localStorage.getItem('CountOfProducts')} </h2>
+                            <h2>{paint.price} руб.</h2>
+                            <h2>Количество товара: {paint.countOfProducts} </h2>
                         </div>
-                        <div className='btn-div'>
-                        <button className="btn btn-warning" onClick={makeOrder}>Сделать заказ</button>
-                        <button  className='btn btn-danger' onClick={removeCard}>Очистить корзину</button>
+                    </div></>
+          ))}
+                    
+                    <div className='btn-div'>
+                            <button className="btn btn-warning" onClick={makeOrder}>Сделать заказ</button>
+                            <button className='btn btn-danger' onClick={removeCard}>Очистить корзину</button>
                         </div>
-                    </div>
-                )}
+                
+               
             </div></>
     )
 }

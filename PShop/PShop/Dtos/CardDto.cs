@@ -7,7 +7,8 @@ namespace PShop.Dtos
 {
     public class CardDto
     {
-        public string ProductId { get; set; }
+        public string productId { get; set; }
         public string CountOfProducts { get; set; }
+        public int UserId { get; set; }
     }
 }

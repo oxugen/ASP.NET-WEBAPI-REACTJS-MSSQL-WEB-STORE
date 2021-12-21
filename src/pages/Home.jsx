@@ -16,6 +16,8 @@ const Home = () => {
   const productFilterURL = "http://localhost:53803/api/product/getbyname/"
   let [productData, setProductData] = useState();
   const [x, setX] = useState(false);
+  const [y, setY] = useState(false);
+  const [z, setZ] = useState(false);
 
   let productNameFilter = searchParams.get("nameOfProduct");  
   const loadPaints = async () => {
@@ -52,25 +54,42 @@ const Home = () => {
     
   })
 
-  const soldCheckbox = ({ target: { checked } }) => {
+  const xCheckbox = ({ target: { checked } }) => {
     setX(checked);
   };
+  const yCheckbox = ({ target: { checked } }) => {
+    setY(checked);
+  };
+  const zCheckbox = ({ target: { checked } }) => {
+    setZ(checked);
+  };
+
 
 
   return (
       <>
       <div className="headHome"><h1>Добро пожаловать,{name}!</h1>
       <Heading></Heading>
-      <h1>Список наших товаров</h1><div class="home">
-      
-      <input className="form-check-input" type="checkbox" checked={x} onChange={soldCheckbox} /> 
+      <h1>Список наших товаров</h1>
+      <div className="input-div"> 
+      <div>
+      <input className="form-check-input" type="checkbox" checked={x} onChange={xCheckbox} /> 
       <label class="form-check-label" for="flexCheckDefault">Наличие на складе</label>  
+      </div>
+      <div>
+      <input className="form-check-input" type="checkbox" checked={y} onChange={yCheckbox} /> 
+      <label class="form-check-label" for="flexCheckDefault">Краски</label>  
+      </div>
+      <div>
+      <input className="form-check-input" type="checkbox" checked={z} onChange={zCheckbox} /> 
+      <label class="form-check-label" for="flexCheckDefault">Растворители</label>  
+      </div>
       </div>
       {!loading && <div className="loading">Loading...</div>}
       {loading && (
         <div className="home-cont">
-          {x && 
-          paints?.filter( paint => paint.numberOfProducts > 0).map((paint) => (
+          {z &&
+          paints?.filter(paint => paint.categoryId == 4).map((paint) => (
             <Details
               id={paint.productId}
               src={`http://localhost:53803/api/product/image?id=${paint.productId}`}
@@ -80,7 +99,29 @@ const Home = () => {
               description={paint.description} 
               price={paint.price}/>
           ))}
-          {!x && 
+            {y &&
+          paints?.filter(paint => paint.categoryId == 1).map((paint) => (
+            <Details
+              id={paint.productId}
+              src={`http://localhost:53803/api/product/image?id=${paint.productId}`}
+              nameOfProduct={paint.nameOfProduct}
+              url={`/details/${paint.productId}`}
+              numberOfProducts={paint.numberOfProducts}
+              description={paint.description} 
+              price={paint.price}/>
+          ))}
+          {x && 
+           paints?.filter(paint => paint.numberOfProducts > 0).map((paint) => (
+            <Details
+              id={paint.productId}
+              src={`http://localhost:53803/api/product/image?id=${paint.productId}`}
+              nameOfProduct={paint.nameOfProduct}
+              url={`/details/${paint.productId}`}
+              numberOfProducts={paint.numberOfProducts}
+              description={paint.description} 
+              price={paint.price}/>
+          ))}
+          {!x && !y && !z &&
            paints?.map((paint) => (
             <Details
               id={paint.productId}

@@ -10,13 +10,12 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const { productId } = useParams();
   const apiURL = "http://localhost:53803/api/product/productById?id=" + productId;
-  //const addCardURL  = "http://localhost:53803/api/product/addCart";
   const [paints,setPaint] =  useState();
+  const [UserId,setUserId] = useState();
   const [loading, setLoading] = useState(false);
   const [redirect,setRedirect] = useState(false);
-
   var oldProductsId = [localStorage.getItem('ProductId')];
- 
+  
   
   const loadPaints = async () => {
     const response = await axios.get(apiURL);
@@ -26,34 +25,39 @@ const Cart = () => {
   
   async function handleSubmit(event)  {
     event.preventDefault();
+    let serialized_items;
     let formData = new FormData(event.currentTarget);
     let CountOfProducts = formData.get("CountOfProducts");
     if (!CountOfProducts) return;
-    localStorage.setItem('ProductId',productId);
-    localStorage.setItem('CountOfProducts',CountOfProducts);
-    // const response = await fetch(addCardURL,{
-    //       method: 'POST',
-    //       headers:{'Content-type': 'application/json'},
-    //       credentials: 'include',
-    //       body: JSON.stringify({
-    //           productId,
-    //           CountOfProducts
-    //       })
-    //   });
-    // console.log(response.data);
+    const response = await fetch('http://localhost:53803/api/product/addCart',{
+      method: 'POST',
+      headers:{'Content-type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({
+          productId,
+          CountOfProducts,
+          UserId 
+      })
+  });
+    
     setRedirect(true);
   }
 
-  const order = async() => {
-    //this.setState({ arr: [oldProductsId, productId] });
-    localStorage.setItem('ProductId', productId );
-
-    setRedirect(true);
-  }
-  
 
   useEffect(() => {
     loadPaints();
+    (
+      async() => {
+        const response = await fetch('http://localhost:53803/api/auth/user',{
+          headers:{'Content-type': 'application/json'},
+          credentials:'include'
+        });
+        const content = await response.json();
+
+        setUserId(content.userId);
+        
+      }
+      )();
   })
 
   if(redirect){
@@ -64,11 +68,12 @@ const Cart = () => {
   return (
     <>
       <div>
-
+        
         <div>
         {!loading && <div className="loading">Loading...</div>}
         {loading && (
           <div className="details-container">
+          <h1>{JSON.parse(localStorage.getItem('products'))}</h1>
           <div><h1>{paints.nameOfProduct}</h1>
           <img width={300} height={400} src={`http://localhost:53803/api/product/image?id=${paints.productId}`}></img>
           </div>
@@ -79,7 +84,7 @@ const Cart = () => {
           <h2>{paints.price} руб.</h2>
           <p>Выберите количество товаров: </p>
           <form onSubmit={handleSubmit}>
-          <input type={'number'} required name="CountOfProducts" min={0} max={paints.numberOfProducts}></input>
+          <input type={'number'} required name="CountOfProducts" min={1} max={paints.numberOfProducts}></input>
           <br></br>
           <button type="submit" className="btn btn-warning" >Добавить в корзину</button>
           </form>
