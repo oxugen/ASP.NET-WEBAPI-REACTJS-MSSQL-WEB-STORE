@@ -11,6 +11,4 @@
   - JavaScript (TypeScript)
   - ReactJS
   - HTML5, CSS3
-
-## now that's only react part 
 🥐🍯🍭🍬
